@@ -6,7 +6,7 @@ on:
       - "main"
 
 env:
-  DOCKER_IMAGE: ${{ vars.ENV_CONTEXT_VAR }}
+  DOCKER_IMAGE: ${{ vars.DOCKER_IMAGE_NAME }}
 
 jobs:
   push_to_registry:
@@ -33,9 +33,9 @@ jobs:
         id: meta
         uses: docker/metadata-action@v3
         with:
+          images: ${{ env.DOCKER_IMAGE }}
           flavor: |
             latest=${{ ( contains(github.ref,'refs/heads/main') || contains(github.ref,'refs/heads/master') ) || false }}
-          images: ${{ env.DOCKER_IMAGE }}
           tags: |
             type=ref,event=branch,enable=${{ contains(github.ref,'refs/heads/') }}
             type=ref,event=tag,enable=${{ contains(github.ref,'refs/tags/') }}
