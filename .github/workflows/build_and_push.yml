@@ -39,7 +39,6 @@ jobs:
           tags: |
             type=ref,event=branch,enable=${{ contains(github.ref,'refs/heads/') }}
             type=ref,event=tag,enable=${{ contains(github.ref,'refs/tags/') }}
-            type=raw,enable=${{ contains(github.ref,'refs/heads/main') || contains(github.ref,'refs/heads/master') }},value=php${{ matrix.php-version }},suffix=
             type=semver,pattern=v{{version}}
             type=semver,pattern=v{{major}}.{{minor}}
             type=semver,pattern=v{{major}}
