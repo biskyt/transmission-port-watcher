@@ -6,7 +6,9 @@ Mount a volume to `portforward` in the container. It must contain a file called 
 
 Takes the following environment variables:
 
-| TRHOST | The host name of the transmission server (default is host.docker.internal) |
-| TRPORT | The port number that transmission is runing on (default is 9091) |
-| TRUSER | The username for logging in to transmission |
+| Variable   | Description |
+|------------|-------------|
+| TRHOST     | The host name of the transmission server (default is host.docker.internal) |
+| TRPORT     | The port number that transmission is running on (default is 9091) |
+| TRUSER     | The username for logging in to transmission |
 | TRPASSWORD | The password for logging into transmission |
