@@ -15,7 +15,7 @@ RUN chmod 777 /usr/bin/portforward_watcher.sh
 
 ENV TRUSER=admin
 ENV TRPASSWORD=admin
-ENV TRHOST=localhost
+ENV TRHOST=host.docker.internal
 ENV TRPORT=9091
 ENV TZ=Europe/London
 
