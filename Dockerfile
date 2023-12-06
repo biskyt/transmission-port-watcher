@@ -14,7 +14,7 @@ COPY portforward_watcher.sh /usr/bin/
 RUN chmod 777 /usr/bin/portforward_watcher.sh
 
 ENV TRUSER=admin
-ENV TRPASSWD=admin
+ENV TRPASSWORD=admin
 ENV TRHOST=localhost
 ENV TRPORT=9091
 ENV TZ=Europe/London
