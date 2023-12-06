@@ -29,9 +29,25 @@ jobs:
         id: buildx
         uses: docker/setup-buildx-action@v3
 
+      - name: setup docker tags
+        id: meta
+        uses: docker/metadata-action@v3
+        with:
+          flavor: |
+            latest=${{ ( contains(github.ref,'refs/heads/main') || contains(github.ref,'refs/heads/master') ) || false }}
+          images: ${{ env.DOCKER_IMAGE }}
+          tags: |
+            type=ref,event=branch,enable=${{ contains(github.ref,'refs/heads/') }}
+            type=ref,event=tag,enable=${{ contains(github.ref,'refs/tags/') }}
+            type=raw,enable=${{ contains(github.ref,'refs/heads/main') || contains(github.ref,'refs/heads/master') }},value=php${{ matrix.php-version }},suffix=
+            type=semver,pattern=v{{version}}
+            type=semver,pattern=v{{major}}.{{minor}}
+            type=semver,pattern=v{{major}}
+            type=edge,branch=develop
+
       - name: Build and push image
         uses: docker/build-push-action@v5
         with:
           push: true
           platforms: linux/amd64,linux/arm64
-          tags: "${{ env.DOCKER_IMAGE }}:latest,${{ env.DOCKER_IMAGE }}:${{ github.sha }},${{ env.DOCKER_IMAGE }}:${{ github.ref }}"
+          tags: ${{ steps.meta.outputs.tags }}
