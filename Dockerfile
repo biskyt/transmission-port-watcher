@@ -3,7 +3,7 @@ FROM alpine:latest
 # Install transmission
 RUN apk --no-cache --no-progress upgrade && \
     apk --no-cache --no-progress add bash curl shadow sed tini inotify-tools\
-    transmission-cli tzdata && \
+    transmission-cli transmission-remote tzdata && \
     rm -rf /tmp/* && \
     mkdir -p /portforward && \
     touch /portforward/port.dat && \
