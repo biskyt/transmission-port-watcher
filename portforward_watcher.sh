@@ -5,7 +5,7 @@ transmission_url="http://${TRHOST:=localhost}:${TRPORT:=9091}/transmission"
 update_port_forward() {
   echo "port.dat has been updated."
   for i in {1..10}; do
-    PORT=$(cat /portforward/port.dat | sed 's/[[:space:]]//g')
+    PORT=$(cat "/portforward/${PORTFILENAME:=port.dat}" | sed 's/[[:space:]]//g')
 
     echo "Update port forward to: ${PORT} for ${transmission_url}"
     transmission-remote ${transmission_url} -n ${TRUSER}:${TRPASSWORD} -p ${PORT}
