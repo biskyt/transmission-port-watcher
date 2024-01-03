@@ -13,6 +13,7 @@ COPY portforward_watcher.sh /usr/bin/
 
 RUN chmod 777 /usr/bin/portforward_watcher.sh
 
+ENV PORTFILENAME=port.dat
 ENV TRUSER=admin
 ENV TRPASSWORD=admin
 ENV TRHOST=host.docker.internal
