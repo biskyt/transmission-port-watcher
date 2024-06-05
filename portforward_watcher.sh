@@ -12,9 +12,11 @@ update_port_forward() {
 
     if [ $? -eq 0 ]; then
       echo "Transmission-remote command was successful."
+      echo "OK" > /result.txt
       break
     else
       echo "Transmission-remote command failed. Retrying in 5 seconds..."
+      echo "FAIL" > /result.txt
       sleep 5
     fi
   done
