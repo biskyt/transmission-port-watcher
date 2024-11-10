@@ -5,6 +5,7 @@ transmission_url="http://${TRHOST:=localhost}:${TRPORT:=9091}/transmission"
 update_port_forward() {
   echo "port.dat has been updated."
   maxloop=10
+  sleeptime=15
   for i in $(seq 1 $maxloop); do
     PORT=$(cat "/portforward/${PORTFILENAME:=port.dat}" | sed 's/[[:space:]]//g')
 
@@ -16,7 +17,7 @@ update_port_forward() {
       echo "OK" > /result.txt
       break
     else
-      echo "Transmission-remote command failed. Attempt $i Retrying in 5 seconds..."
+      echo "Transmission-remote command failed. Attempt $i of $maxloop Retrying in $sleeptime seconds..."
       echo "FAIL" > /result.txt
       if [ "$i" -eq $maxloop ]; then 
         echo "FAILED TOO MANY TIMES"
