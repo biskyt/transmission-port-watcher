@@ -19,10 +19,13 @@ update_port_forward() {
       echo "Transmission-remote command failed. Attempt $i Retrying in 5 seconds..."
       echo "FAIL" > /result.txt
       if [ "$i" -eq $maxloop ]; then 
-        echo -e "FAILED TOO MANY TIMES - KILLING CONTAINER\nuse restart-policy to restart.."
+        echo "FAILED TOO MANY TIMES"
+        echo "Waiting 1 minute, then terminatating container."
+        echo "use restart-policy to restart.."
+        sleep 60
         exit 1
       fi
-      sleep 5
+      sleep 15
     fi
   done
 }
