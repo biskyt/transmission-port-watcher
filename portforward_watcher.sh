@@ -31,6 +31,25 @@ update_port_forward() {
   done
 }
 
+start_time=$(date +%s) # Record the start time 
+timeout=$((3 * 60 * 60)) # Set the timeout duration (3 hours in seconds) 
+
+# Function to monitor timeout in the background 
+monitor_timeout() { 
+  while true; do 
+    current_time=$(date +%s) # Get the current time 
+    elapsed_time=$((current_time - start_time)) 
+    if [ $elapsed_time -ge $timeout ]; then 
+      echo "Timeout reached. Exiting." pkill -P $$ inotifywait # Kill the inotifywait process 
+      exit
+    fi 
+    sleep 600 # Check every 10 minutes 
+  done 
+} 
+    
+# Start the timeout monitor in the background
+monitor_timeout &
+
 ## Actual script starts here
 
 # Update port on first run
