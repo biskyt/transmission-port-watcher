@@ -5,7 +5,7 @@ transmission_url="http://${TRHOST:=localhost}:${TRPORT:=9091}/transmission"
 update_port_forward() {
   echo "port.dat has been updated."
   maxloop=10
-  for i in {1..$maxloop}; do
+  for i in $(seq 1 $maxloop); do
     PORT=$(cat "/portforward/${PORTFILENAME:=port.dat}" | sed 's/[[:space:]]//g')
 
     echo "Update port forward to: ${PORT} for ${transmission_url}"
@@ -18,7 +18,7 @@ update_port_forward() {
     else
       echo "Transmission-remote command failed. Attempt $i Retrying in 5 seconds..."
       echo "FAIL" > /result.txt
-      if [ $i -eq $maxloop ]; then 
+      if [ "$i" -eq $maxloop ]; then 
         echo -e "FAILED TOO MANY TIMES - KILLING CONTAINER\nuse restart-policy to restart.."
         exit 1
       fi
