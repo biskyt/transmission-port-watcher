@@ -22,4 +22,7 @@ ENV TZ=Europe/London
 
 VOLUME /portforward
 
+# Set up the healthcheck (redundant as image now terminates after 10 fails)
+# HEALTHCHECK --interval=1m --timeout=10s --start-period=1m --retries=5 CMD /usr/local/bin/healthcheck.sh
+
 ENTRYPOINT ["/sbin/tini", "--", "/usr/bin/portforward_watcher.sh"]
